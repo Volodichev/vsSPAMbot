@@ -3,6 +3,9 @@ Antispam moderator bot for telegram chats
 
 _*Make sure @vsspambot is an admin._
 
+<img align="center" alt="volodichev.com" width="400px" src="https://raw.githubusercontent.com/Volodichev/vsspambot/main/img/logo.jpg" />
+
+
 --------------------------------------------
 
 _/help_ — show info and commands
