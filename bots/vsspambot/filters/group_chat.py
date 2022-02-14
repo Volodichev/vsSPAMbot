@@ -1,7 +1,7 @@
 from aiogram.dispatcher.filters import BoundFilter
 from aiogram.types import ChatType, Message
 
-from bots.vsspambot.data.config import TEST_CHAT_IDS
+from config.settings import TEST_CHAT_IDS
 
 chat_types_group = [ChatType.GROUP, ChatType.SUPERGROUP]
 
