@@ -1,9 +1,8 @@
 import sys
 from datetime import datetime as dt, timedelta as td
 
-from bots.vsspambot.loader import dp
-from bots.vsspambot.utils.manage import send_message, delete_message, print_handler, get_lang_text
 from bots.vsspambot.utils.bases import get_redis_params, get_redis_quarantine
+from bots.vsspambot.utils.manage import (send_message, delete_message, print_handler, get_lang_text, user_is_chat_admin)
 
 _ = get_lang_text
 
@@ -13,15 +12,14 @@ async def custom_spam_handler(message):
 
     time_now = dt.now()
 
-    bot = dp.bot
     chat_id = message.chat.id
     params = await get_redis_params(chat_id)
 
     lang = params.get('LANGUAGE')
 
     user_id = message.from_user.id
-    user = await bot.get_chat_member(chat_id=chat_id, user_id=user_id)
-    if user.is_chat_admin():
+
+    if await user_is_chat_admin(message):
         return True
 
     username = message.from_user.first_name
@@ -66,14 +64,11 @@ async def custom_spam_handler(message):
 async def spam_handler(message):
     await print_handler(message, sys._getframe().f_code.co_name)
 
-    bot = dp.bot
     chat_id = message.chat.id
     message_id = message.message_id
     content_type = message.content_type
 
-    user_id = message.from_user.id
-    user = await bot.get_chat_member(chat_id=chat_id, user_id=user_id)
-    if user.is_chat_admin():
+    if await user_is_chat_admin(message):
         return True
 
     params = await get_redis_params(chat_id)

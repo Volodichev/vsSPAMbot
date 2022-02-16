@@ -5,7 +5,8 @@ from bots.vsspambot.data.localizations import commands_descriptions
 from bots.vsspambot.keyboards.inline.guardian_keyboard import generate_confirm_markup
 from bots.vsspambot.loader import dp, db
 from bots.vsspambot.utils.bases import get_redis_params, get_redis_quarantine, put_redis_quarantine
-from bots.vsspambot.utils.manage import send_message, print_handler, restrict_chat_member, get_lang_text
+from bots.vsspambot.utils.manage import (send_message, print_handler, restrict_chat_member, get_lang_text,
+                                         user_is_chat_admin)
 
 _ = get_lang_text
 
@@ -31,8 +32,7 @@ async def new_member_handler(message):
         is_bot = member.is_bot
         user_id = member.id
         username = member.username
-        user = await bot.get_chat_member(chat_id=chat_id, user_id=user_id)
-        is_chat_admin = user.is_chat_admin()
+        is_chat_admin = await user_is_chat_admin(message)
 
         if is_bot:
             me = await bot.me

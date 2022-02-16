@@ -37,4 +37,4 @@ class ContainsMention(BoundFilter):
 
 class IsGroup(BoundFilter):
     async def check(self, message: Message) -> bool:
-        return message.chat.type in chat_types_group  # and message.forward_from_chat is None
+        return message.chat.type in chat_types_group

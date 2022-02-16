@@ -2,7 +2,7 @@ import asyncio
 import logging
 import re
 import typing
-from aiogram.types import ParseMode, Message
+from aiogram.types import ParseMode, Message, InlineQuery, CallbackQuery
 from aiogram.utils import exceptions
 
 from bots.vsspambot.loader import bot, dp
@@ -11,7 +11,7 @@ from bots.vsspambot.data.localizations import localizations
 
 async def print_handler(message, name='message'):
     message = str(message).replace("false", "False").replace("true", "True")
-    logging.debug(f'{name} = {message.encode("utf-8")}\n')
+    logging.info(f'{name} = {message.encode("utf-8")}\n')
 
 
 async def send_message(chat_id: int, text: str, parse_mode=ParseMode.HTML, disable_notification: bool = False,
@@ -129,12 +129,6 @@ async def promote_chat_member(
         pass
 
 
-async def is_bot_admin(chat_id):
-    bot = dp.bot
-    me = await bot.me
-    user_bot = await bot.get_chat_member(chat_id=chat_id, user_id=me.id)
-    return user_bot.is_chat_admin()
-
 
 async def get_commands(message) -> dict:
     """
@@ -168,3 +162,39 @@ async def get_lang_text(lang_text=None, lang='en'):
             lang_text = lang_texts.get('en')
 
     return lang_text
+
+
+async def is_bot_admin(chat_id):
+    bot = dp.bot
+    me = await bot.me
+    user_bot = await bot.get_chat_member(chat_id=chat_id, user_id=me.id)
+    return user_bot.is_chat_admin()
+
+async def user_is_chat_admin(msg):
+    bot = dp.bot
+    is_chat_admin = False
+    user_id = msg.from_user.id
+    if isinstance(msg, CallbackQuery):
+        msg = msg.message
+    chat_id = msg.chat.id
+    user = await bot.get_chat_member(chat_id=chat_id, user_id=user_id)
+    is_chat_admin = user.is_chat_admin()
+    sender_chat = msg.sender_chat
+    if sender_chat:
+        if chat_id == sender_chat.id:
+            is_chat_admin = True
+
+    return is_chat_admin
+
+async def user_is_chat_creator(msg):
+    bot = dp.bot
+    is_chat_creator = False
+    user_id = msg.from_user.id
+    if isinstance(msg, CallbackQuery):
+        msg = msg.message
+
+    chat_id = msg.chat.id
+    user = await bot.get_chat_member(chat_id=chat_id, user_id=user_id)
+    is_chat_creator = user.is_chat_creator()
+
+    return is_chat_creator
