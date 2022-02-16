@@ -47,35 +47,3 @@ _/no_captcha_ — don't ask newbies, is he a bot
 _/quarantine_ — quarantine for newbies "quarantine 24"
 
 _/settings_ — settings
-        
-
-
-###TODO:
-- [x] add README
-- [x] only admins or creator can edit settings
-- [x] remove forwarded messages, links, usernames in newbies posts for first 24(N) hours [like @daysandbox_bot]
-- [x] remove messages type: link, sticker, gif, voice attachment, file attachment and other  [like @watchdog_robot, @nosticker_bot]
-- [x] restrict newbies rights while solve captcha button [like https://tgdev.io/bot/orgrobot И https://github.com/F0rzend/antirobot_aiogram]
-- [x] /no_captcha
-- [x] add throttling
-- [x] new test bot
-- [x] приветствие с инструкцией, если добавили как участника и если добавилил как админа
-- [ ] put github
-- [ ] move to restapi
-- [ ] add ubuntu - redis
-
-
-
-####later:
-- [ ] add tests
-- [ ] clean requirements
-- [ ] add /readonly
-- [ ] forbid spam languages No China Bot removes CJK spam messages from your chat [like @nochinabot, @noarab_bot] + не показывать настройку /no_arabic для арабских языков, /no_chineeze для китайских
-- [ ] add check for street address  ex.: Адрес: Римского-Корсакова, д. 11, корп. 8. 
-- [ ] remove custom list words [like @nopigrobot, @grep_robot] 
-- [ ] hide info about entrance of new user [like @joinhider_bot]
-- [ ] limit of message in day/hour/min [like @freqrobot]
-- [ ] cmd /reset to default chat settings
-- [ ] записывать всех пользователей в общую db for all users
-- [ ] add statistics
-- [ ] удалять старые посты

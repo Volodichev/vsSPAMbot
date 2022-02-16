@@ -11,12 +11,12 @@ _ = get_lang_text
 
 
 async def left_chat_member(message):
-    # await print_handler(message, sys._getframe().f_code.co_name)
+    await print_handler(message, sys._getframe().f_code.co_name)
     pass
 
 
 async def new_member_handler(message):
-    # await print_handler(message, sys._getframe().f_code.co_name)
+    await print_handler(message, sys._getframe().f_code.co_name)
 
     bot = dp.bot
     chat_id = message.chat.id

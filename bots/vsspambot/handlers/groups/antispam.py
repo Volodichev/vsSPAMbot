@@ -9,7 +9,7 @@ _ = get_lang_text
 
 
 async def custom_spam_handler(message):
-    # await print_handler(message, sys._getframe().f_code.co_name)
+    await print_handler(message, sys._getframe().f_code.co_name)
 
     time_now = dt.now()
 
@@ -64,7 +64,7 @@ async def custom_spam_handler(message):
 
 
 async def spam_handler(message):
-    # await print_handler(message, sys._getframe().f_code.co_name)
+    await print_handler(message, sys._getframe().f_code.co_name)
 
     bot = dp.bot
     chat_id = message.chat.id

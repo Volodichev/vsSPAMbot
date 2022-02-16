@@ -6,12 +6,12 @@ from bots.vsspambot.utils.manage import print_handler
 
 
 async def command_handler(message: Message):
-    # await print_handler(message, sys._getframe().f_code.co_name)
+    await print_handler(message, sys._getframe().f_code.co_name)
 
     return
 
 
 async def text_handler(message: Message):
-    # await print_handler(message, sys._getframe().f_code.co_name)
+    await print_handler(message, sys._getframe().f_code.co_name)
 
     return

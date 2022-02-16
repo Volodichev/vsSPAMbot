@@ -6,14 +6,15 @@ from bots.vsspambot.data.config import ADMIN_COMMANDS, CREATOR_COMMANDS, EDIT_CO
 from bots.vsspambot.keyboards.inline.settings_keyboard import generate_language_markup, generate_settings_markup
 from bots.vsspambot.loader import dp
 from bots.vsspambot.utils.bases import get_redis_params, get_params_commands, put_redis_and_db_params
-from bots.vsspambot.utils.manage import send_message, print_handler, is_bot_admin, get_commands, get_lang_text
+from bots.vsspambot.utils.manage import (send_message, print_handler, is_bot_admin, get_commands, get_lang_text)
 from bots.vsspambot.utils.throttling import rate_limit
 
 _ = get_lang_text
 
 
+@rate_limit(3, 'creator')
 async def command_creator_handler(message: Message):
-    # await print_handler(message, sys._getframe().f_code.co_name)
+    await print_handler(message, sys._getframe().f_code.co_name)
 
     bot = dp.bot
     chat_id = message.chat.id
@@ -53,8 +54,9 @@ async def command_creator_handler(message: Message):
             await send_message(chat_id, result_text)
 
 
+@rate_limit(3, 'admin')
 async def command_admin_handler(message: Message):
-    # await print_handler(message, sys._getframe().f_code.co_name)
+    await print_handler(message, sys._getframe().f_code.co_name)
 
     params = None
     result_text = None
@@ -113,8 +115,9 @@ async def command_admin_handler(message: Message):
         await send_message(chat_id, result_text)
 
 
+@rate_limit(3, 'quarantine')
 async def command_quarantine_handler(message: Message):
-    # await print_handler(message, sys._getframe().f_code.co_name)
+    await print_handler(message, sys._getframe().f_code.co_name)
 
     bot = dp.bot
     chat_id = message.chat.id
@@ -162,8 +165,9 @@ async def command_quarantine_handler(message: Message):
                 await send_message(chat_id, result_text)
 
 
+@rate_limit(3, 'info')
 async def command_info_handler(message: Message):
-    # await print_handler(message, sys._getframe().f_code.co_name)
+    await print_handler(message, sys._getframe().f_code.co_name)
 
     chat_id = message.chat.id
     params = await get_redis_params(chat_id)
@@ -201,8 +205,9 @@ async def command_info_handler(message: Message):
     await send_message(chat_id=chat_id, text=text)
 
 
+@rate_limit(3, 'params')
 async def show_params_buttons(message: Message):
-    # await print_handler(message, sys._getframe().f_code.co_name)
+    await print_handler(message, sys._getframe().f_code.co_name)
 
     chat_id = message.chat.id
     user_id = message.from_user.id
@@ -236,7 +241,7 @@ async def show_params_buttons(message: Message):
 
 @rate_limit(3, 'language')
 async def show_language_buttons(message: Message):
-    # await print_handler(message, sys._getframe().f_code.co_name)
+    await print_handler(message, sys._getframe().f_code.co_name)
 
     chat_id = message.chat.id
     user_id = message.from_user.id

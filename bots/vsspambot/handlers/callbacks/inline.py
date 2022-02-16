@@ -16,7 +16,7 @@ _ = get_lang_text
 
 
 async def button_admin_handler(query: types.InlineQuery):
-    # await print_handler(query, sys._getframe().f_code.co_name)
+    await print_handler(query, sys._getframe().f_code.co_name)
 
     if not 'message' in query:
         return
@@ -81,7 +81,7 @@ async def button_admin_handler(query: types.InlineQuery):
 
 
 async def button_edit_handler(query: types.InlineQuery):
-    # await print_handler(query, sys._getframe().f_code.co_name)
+    await print_handler(query, sys._getframe().f_code.co_name)
 
     if not 'message' in query:
         return
@@ -116,7 +116,7 @@ async def button_edit_handler(query: types.InlineQuery):
 
 
 async def button_language_handler(query: types.InlineQuery, callback_data: dict):
-    # await print_handler(query, sys._getframe().f_code.co_name)
+    await print_handler(query, sys._getframe().f_code.co_name)
 
     if not 'message' in query:
         return
@@ -145,7 +145,7 @@ async def button_language_handler(query: types.InlineQuery, callback_data: dict)
 
 
 async def button_not_bot_handler(query: types.InlineQuery, callback_data: dict):
-    # await print_handler(query, sys._getframe().f_code.co_name)
+    await print_handler(query, sys._getframe().f_code.co_name)
 
     if not 'message' in query:
         return

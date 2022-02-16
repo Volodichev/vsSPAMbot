@@ -9,6 +9,11 @@ from bots.vsspambot.loader import bot, dp
 from bots.vsspambot.data.localizations import localizations
 
 
+async def print_handler(message, name='message'):
+    message = str(message).replace("false", "False").replace("true", "True")
+    logging.debug(f'{name} = {message.encode("utf-8")}\n')
+
+
 async def send_message(chat_id: int, text: str, parse_mode=ParseMode.HTML, disable_notification: bool = False,
                        reply_markup=None, disable_web_page_preview=None) -> bool or Message:
     """
@@ -69,14 +74,16 @@ async def delete_message(chat_id: int, message_id: int):
 
 async def edit_message_reply_markup(chat_id: int, message_id: int, reply_markup=None, **kwargs):
     try:
-        return await bot.edit_message_reply_markup(chat_id=chat_id, message_id=message_id, reply_markup=reply_markup, **kwargs)
+        return await bot.edit_message_reply_markup(chat_id=chat_id, message_id=message_id, reply_markup=reply_markup,
+                                                   **kwargs)
     except:
         pass
 
 
 async def edit_message_text(text: str, chat_id: int, message_id: int, reply_markup=None, **kwargs):
     try:
-        await bot.edit_message_text(text=text, chat_id=chat_id, message_id=message_id, reply_markup=reply_markup, **kwargs)
+        await bot.edit_message_text(text=text, chat_id=chat_id, message_id=message_id, reply_markup=reply_markup,
+                                    **kwargs)
     except:
         pass
 
@@ -92,7 +99,8 @@ async def kick_chat_member(chat_id: int, user_id: int, until_date=None, revoke_m
     try:
         await bot.kick_chat_member(chat_id=chat_id, user_id=user_id, until_date=until_date,
                                    revoke_messages=revoke_messages)
-    except:
+    except Exception as e:
+        print(f'kick_chat_member: {e}')
         pass
 
 
@@ -119,11 +127,6 @@ async def promote_chat_member(
 
     except:
         pass
-
-
-async def print_handler(message, name='message'):
-    message = str(message).replace("false", "False").replace("true", "True")
-    logging.info(f'{name} = {message.encode("utf-8")}\n')
 
 
 async def is_bot_admin(chat_id):

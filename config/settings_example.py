@@ -9,7 +9,7 @@ PGHOST = os.getenv("PGHOST", default="localhost").strip()
 PGPORT = os.getenv("PGPORT", default='5432').strip()
 
 # SSL and CERTS
-SSL = os.getenv("SSL_PATH").strip()
+SSL = os.getenv("SSL").strip()
 WEBHOOK_HOST = os.getenv("WEBHOOK_HOST", default=None).strip()
 
 # BOTS and TOKENS

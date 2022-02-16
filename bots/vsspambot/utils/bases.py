@@ -10,6 +10,7 @@ from bots.vsspambot.loader import db
 
 time_now = datetime.datetime.now()
 redis_uri = f"redis://{REDIS_PASS}@{REDIS_HOST}:{REDIS_PORT}" if REDIS_PASS else f"redis://{REDIS_HOST}:{REDIS_PORT}"
+# redis_uri = f"redis://localhost:6379"
 redis_storage = aioredis.from_url(redis_uri)
 
 async def get_keys_redis():
@@ -25,6 +26,9 @@ async def clean_redis():
 
 
 async def get_from_redis(key):
+    if not key:
+        print(f'error get_from_redis {key=}')
+        return None
     redis_str = await redis_storage.get(key)
     return redis_str
 
@@ -48,7 +52,6 @@ async def get_redis_params(chat_id):
     key = f"{BOT_REDIS_CONFIG}:{chat_id}"
     params_json = await get_from_redis(key)
 
-    # params = json.loads(params_json) if params_json else DEFAULT_PARAMS
     params = await json_loads_params(params_json)
 
     if params.get('null'):
@@ -70,8 +73,8 @@ async def get_redis_quarantine(chat_id):
     return quarantine_users_dict
 
 
-async def put_to_redis(name, value):
-    result = await redis_storage.set(name, value)
+async def put_to_redis(key, value):
+    result = await redis_storage.set(key, value)
     return result
 
 
@@ -82,7 +85,6 @@ async def put_redis_params(chat_id, params):
 
 async def put_redis_and_db_params(chat_id, params):
     await put_redis_params(chat_id, params)
-
     botsets = db.get('botsets')
     await botsets.add(chat_id=str(chat_id), params=json.dumps(params))
 

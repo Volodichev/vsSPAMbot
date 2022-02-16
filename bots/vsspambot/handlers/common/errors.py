@@ -1,4 +1,5 @@
 import logging
+import sys
 
 from aiogram import types
 from aiogram.utils.exceptions import (BotBlocked, Unauthorized, InvalidQueryID, TelegramAPIError,
@@ -7,13 +8,13 @@ from aiogram.utils.exceptions import (BotBlocked, Unauthorized, InvalidQueryID, 
                                       CantParseEntities, MessageCantBeDeleted)
 
 from bots.vsspambot.utils.bases import get_redis_params
-from bots.vsspambot.utils.manage import send_message, get_lang_text
+from bots.vsspambot.utils.manage import send_message, get_lang_text, print_handler
 
 _ = get_lang_text
 
 
 async def error_command_private_handler(message: types.Message):
-    # await print_handler(message, sys._getframe().f_code.co_name)
+    await print_handler(message, sys._getframe().f_code.co_name)
 
     chat_id = message.chat.id
     params = await get_redis_params(chat_id)

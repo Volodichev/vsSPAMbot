@@ -8,7 +8,7 @@ from bots.vsspambot.data.config import DEFAULT_PARAMS
 
 metadata = MetaData(naming_convention=convention)
 
-#v. 0.1.14 02.02.2022
+#v. 0.1.14 15.02.2022
 
 
 class VsSpamBotUserDB(BaseTelegramUserDB):
@@ -19,7 +19,7 @@ class VsSpamBotUserDB(BaseTelegramUserDB):
     # Schema
     chat_id = Column('chat_id', String)
     last_join_date = Column(DateTime, nullable=False, server_default=func.now(), onupdate=func.now())
-    blocked = Column(Boolean, nullable=False, default=False)
+    blocked = Column(Boolean, nullable=True, default=False)
 
     __table_args__ = (UniqueConstraint('user_id', 'chat_id', name='userchat_constraint'),)
 
